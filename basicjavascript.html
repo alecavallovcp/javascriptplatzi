@@ -17,10 +17,23 @@
     document.write(a+b);</script>
     <h2>Función a la que llamamos con parámetros:</h2>
     <h3>Sumar 15 + 48 = </h3>
-    <script>alert("Se ejecutará la suma")
+    <script>//alert("Se ejecutará la suma")
     document.write(sumar(15,48));
-    alert("Se ha ejecutado la suma");</script>
+    //alert("Se ha ejecutado la suma");</script>
 
+    <script>//secuenciar(prompt("Ingresar un número chico"));</script>
+
+    <button onclick="myFunction()">Generar número aleatorio</button>
+
+    <p id="demo"></p>
+    
+    <script>
+    function myFunction() {
+      var x = Math.floor((Math.random() * 10) + 1);
+      document.getElementById("demo").innerHTML = x;
+      document.write("<p>"+x+"</p>");
+    }
+    </script>
 
 </body>
 </html>

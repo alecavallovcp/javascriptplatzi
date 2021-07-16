@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FizzBuzz</title>
+</head>
+<body>
+    <h1>FizzBuzz</h1><h3>Número del 1 al 100, pero si es divisible por 3 escribimos Fizz, si es divisible por 5 escribimos Buzz, y si es divisible por ambos escribimos FizzBuzz</h3>
+    <p id="parrafo"></p>
+    <script>
+        escrito = document.getElementById("parrafo");
+        for(i=1;i<=100;i++)
+        {
+            texto = i;
+            if(i%3==0) // Si es divisible por 3
+            {
+                texto = "Fizz";
+                if(i%5==0) // Si es divisible por 3 y 5
+                {
+                    texto = texto +"Buzz";
+                }
+            }else
+            {
+                if(i%5==0) // Si es divisible por 5
+                {
+                    texto = "Buzz";
+                }
+            }
+            escrito.innerHTML = escrito.innerHTML+texto+"<br>";
+        }
+    </script>
+</body>
+</html>

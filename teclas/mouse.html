@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style> body{font-family: Helvetica;}
+        #boton_black{background-color:black;}
+        #boton_red{background-color:red;}
+        #boton_blue{background-color:blue;}
+        #boton_green{background-color:green;}
+        #boton_yellow{background-color:yellow;}
+        #boton_white{background-color:white;}
+        .boton{width: 20px;}
+    </style>
+<title>Dibujando con Flechas</title>
+<body>
+    <h2>Mini Pizzarón</h2>
+    <input type="button" value=" " class="boton" id="boton_black">
+    <input type="button" value=" " class="boton" id="boton_red">
+    <input type="button" value=" " class="boton" id="boton_blue">
+    <input type="button" value=" " class="boton" id="boton_green">
+    <input type="button" value=" " class="boton" id="boton_yellow">
+    <input type="button" value=" " class="boton" id="boton_white">
+    <input type="button" value="-" class="boton" id="boton_menos">
+    <input type="text" value="3" class="boton" id="texto_pluma">
+    <input type="button" value="+" class="boton" id="boton_mas">
+    <br>
+    <canvas width="300" height="300" id="area_de_dibujo"></canvas>
+    <script>
+        // Creamos un objeto teclas con los valores de las flechitas adentro
+        var teclas = {UP:38,DOWN:40,LEFT:37,RIGHT:39};
+
+        document.getElementById("boton_black").addEventListener("click", setearColor);
+        document.getElementById("boton_red").addEventListener("click", setearColor);
+        document.getElementById("boton_blue").addEventListener("click", setearColor);
+        document.getElementById("boton_green").addEventListener("click", setearColor);
+        document.getElementById("boton_yellow").addEventListener("click", setearColor);
+        document.getElementById("boton_white").addEventListener("click", setearColor);
+        document.getElementById("boton_menos").addEventListener("click", plumaMenos);
+        document.getElementById("boton_mas").addEventListener("click", plumaMas);
+        var cuadrito = document.getElementById("area_de_dibujo");
+        var papel = cuadrito.getContext("2d");
+        cuadrito.addEventListener("mousemove",dibujarMouse);
+        cuadrito.addEventListener("mousedown",iniciarLinea);
+        cuadrito.addEventListener("mouseup",cerrarLinea);
+        color = "red";
+        grosor = 3;
+
+        // Dibujamos el área del canvas
+        dibujarLinea("black",0,0,0,300,papel);
+        dibujarLinea("black",0,0,300,0,papel);
+        dibujarLinea("black",0,300,300,300,papel);
+        dibujarLinea("black",300,0,300,300,papel);
+
+        // Cambiamos el color
+        function setearColor(evento){
+            color=evento.srcElement.id.substr(6);
+        }
+
+        // Restamos tamaño pluma
+        function plumaMenos()
+        {
+            if (grosor>0)
+            {
+                papel.lineWidth=grosor--;
+                console.log(grosor);
+                document.getElementById("texto_pluma").value=grosor;
+            }
+        }
+        // Sumamos tamaño pluma
+        function plumaMas()
+        {
+            if (grosor>0)
+            {
+                papel.lineWidth=grosor++;
+                console.log(grosor);
+                document.getElementById("texto_pluma").value=grosor;
+            }
+        }
+        function iniciarLinea(evento)
+        {
+            console.log("Iniciamos Linea")
+            papel.beginPath();
+            papel.strokeStyle=color;
+            //papel.lineWidth = grosor;
+            papel.moveTo(evento.layerX,evento.layerY);
+            //papel.lineTo(xfinal,yfinal);
+            //papel.stroke();
+            //papel.closePath();
+        }
+        function cerrarLinea(evento)
+        {
+            console.log("Cerramos linea");
+            //papel.beginPath();
+            //papel.strokeStyle=color;
+            //papel.lineWidth = 3;
+            //papel.moveTo(xinicial,yinicial);
+            papel.lineTo(evento.layerX,evento.layerY);
+            papel.stroke();
+            papel.closePath();
+        }
+        function dibujarTramo(xfinal, yfinal, lienzo)
+        {
+            //lienzo.beginPath();
+            //lienzo.strokeStyle=color;
+            //lienzo.lineWidth = 3;
+            //lienzo.moveTo(xinicial,yinicial);
+            lienzo.lineTo(xfinal,yfinal);
+            lienzo.stroke();
+            //lienzo.closePath();
+        }
+
+        function dibujarLinea(color, xinicial, yinicial, xfinal, yfinal, lienzo)
+        {
+            lienzo.beginPath();
+            lienzo.strokeStyle=color;
+            lienzo.lineWidth = 3;
+            lienzo.moveTo(xinicial,yinicial);
+            lienzo.lineTo(xfinal,yfinal);
+            lienzo.stroke();
+            lienzo.closePath();
+        }
+        
+        function dibujarMouse(evento)
+        {
+            //Si no hay botón apretado no dibuja
+            if(evento.buttons ==0){return;}
+
+            var colorcito = "green";
+            var mouse_x = evento.layerX;
+            var mouse_y = evento.layerY;
+            var movimiento = 2;
+            //console.log(evento.layerX+" , "+evento.layerY);
+            dibujarTramo(mouse_x,mouse_y,papel);
+           
+           }
+            //console.log("Tecla oprimida");
+            //console.log(teclas);
+        
+
+
+    </script>
+</body>
+</html>
